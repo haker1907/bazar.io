@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug 400 Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1000px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .error-section {
+            background-color: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #dc2626;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .warning-section {
+            background-color: #fef3cd;
+            border: 1px solid #fde68a;
+            color: #92400e;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .info-section {
+            background-color: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            color: #1e40af;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .success-section {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .code-block {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+            border-left: 4px solid #007bff;
+        }
+        .step {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border-radius: 4px;
+            margin: 10px 0;
+            border-left: 4px solid #28a745;
+        }
+        .checklist {
+            background-color: #fff3cd;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .checklist ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .checklist li {
+            margin: 5px 0;
+        }
+        .debug-tool {
+            background-color: #e7f3ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background-color: #0056b3; }
+        .error { color: #dc3545; }
+        .success { color: #28a745; }
+        .warning { color: #ffc107; }
+        .info { color: #17a2b8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 Debug 400 Error - Registration Issue</h1>
+        
+        <div class="error-section">
+            <h3>❌ Error: Failed to load resource: the server responded with a status of 400</h3>
+            <p>This error typically occurs during the registration process when there's an issue with the request to Supabase.</p>
+        </div>
+
+        <div class="debug-tool">
+            <h3>🛠️ Quick Debug Steps</h3>
+            <div class="step">
+                <strong>Step 1:</strong> Open Browser Developer Tools (F12)
+            </div>
+            <div class="step">
+                <strong>Step 2:</strong> Go to Network tab
+            </div>
+            <div class="step">
+                <strong>Step 3:</strong> Try to register again
+            </div>
+            <div class="step">
+                <strong>Step 4:</strong> Look for the failed request (red status)
+            </div>
+            <div class="step">
+                <strong>Step 5:</strong> Click on the failed request to see details
+            </div>
+        </div>
+
+        <div class="checklist">
+            <h3>✅ Common Causes & Solutions</h3>
+            <ul>
+                <li><strong>Environment Variables Missing:</strong>
+                    <div class="code-block">
+                        Check .env.local file has:<br>
+                        NEXT_PUBLIC_SUPABASE_URL=your_supabase_url<br>
+                        NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+                    </div>
+                </li>
+                <li><strong>Database Table Missing:</strong>
+                    <div class="code-block">
+                        Run the database setup script:<br>
+                        database-setup-with-registration.sql
+                    </div>
+                </li>
+                <li><strong>RLS Policies:</strong>
+                    <div class="code-block">
+                        Check Row Level Security policies<br>
+                        are properly configured
+                    </div>
+                </li>
+                <li><strong>Phone Number Format:</strong>
+                    <div class="code-block">
+                        Ensure phone number is in correct format:<br>
+                        +998901234567 or 901234567
+                    </div>
+                </li>
+                <li><strong>Supabase Auth Settings:</strong>
+                    <div class="code-block">
+                        Check Supabase Auth settings:<br>
+                        - Email confirmation disabled<br>
+                        - User registration enabled
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="info-section">
+            <h3>🔧 Detailed Debugging</h3>
+            <div class="step">
+                <strong>1. Check Console Errors:</strong>
+                <div class="code-block">
+                    // Look for these in browser console:<br>
+                    - "Error creating user profile: {}"<br>
+                    - "Failed to load resource: 400"<br>
+                    - "Invalid phone number format"<br>
+                    - "user_profiles table does not exist"
+                </div>
+            </div>
+            
+            <div class="step">
+                <strong>2. Check Network Request:</strong>
+                <div class="code-block">
+                    // Look for failed POST request to:<br>
+                    - /auth/v1/signup (Supabase Auth)<br>
+                    - /rest/v1/user_profiles (Database)
+                </div>
+            </div>
+            
+            <div class="step">
+                <strong>3. Check Request Payload:</strong>
+                <div class="code-block">
+                    // Verify the request body contains:<br>
+                    {<br>
+                      "email": "test@example.com",<br>
+                      "password": "password123",<br>
+                      "data": {<br>
+                        "full_name": "Test User",<br>
+                        "telephone": "+998901234567"<br>
+                      }<br>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="warning-section">
+            <h3>⚠️ Specific 400 Error Scenarios</h3>
+            <div class="step">
+                <strong>Scenario 1: Invalid Email Format</strong>
+                <div class="code-block">
+                    Error: "Invalid email format"<br>
+                    Solution: Check email validation in registration form
+                </div>
+            </div>
+            
+            <div class="step">
+                <strong>Scenario 2: Phone Number Format</strong>
+                <div class="code-block">
+                    Error: "Invalid phone number format"<br>
+                    Solution: Ensure phone number follows Uzbek format
+                </div>
+            </div>
+            
+            <div class="step">
+                <strong>Scenario 3: Database Constraint</strong>
+                <div class="code-block">
+                    Error: "duplicate key value violates unique constraint"<br>
+                    Solution: Check if user already exists
+                </div>
+            </div>
+            
+            <div class="step">
+                <strong>Scenario 4: Missing Required Fields</strong>
+                <div class="code-block">
+                    Error: "null value in column violates not-null constraint"<br>
+                    Solution: Check database schema and required fields
+                </div>
+            </div>
+        </div>
+
+        <div class="success-section">
+            <h3>✅ Quick Fixes</h3>
+            <div class="step">
+                <strong>Fix 1: Check Environment Variables</strong>
+                <div class="code-block">
+                    // In .env.local file:<br>
+                    NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co<br>
+                    NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+                </div>
+            </div>
+            
+            <div class="step">
+                <strong>Fix 2: Run Database Setup</strong>
+                <div class="code-block">
+                    // Run this SQL in Supabase SQL Editor:<br>
+                    -- Check if user_profiles table exists<br>
+                    SELECT * FROM information_schema.tables <br>
+                    WHERE table_name = 'user_profiles';
+                </div>
+            </div>
+            
+            <div class="step">
+                <strong>Fix 3: Check RLS Policies</strong>
+                <div class="code-block">
+                    -- Check RLS policies for user_profiles<br>
+                    SELECT * FROM pg_policies <br>
+                    WHERE tablename = 'user_profiles';
+                </div>
+            </div>
+        </div>
+
+        <div class="debug-tool">
+            <h3>🧪 Test Registration Manually</h3>
+            <div class="step">
+                <strong>Test 1: Check Supabase Connection</strong>
+                <button onclick="testSupabaseConnection()">Test Connection</button>
+                <div id="connectionResult"></div>
+            </div>
+            
+            <div class="step">
+                <strong>Test 2: Check Database Tables</strong>
+                <button onclick="checkDatabaseTables()">Check Tables</button>
+                <div id="tablesResult"></div>
+            </div>
+            
+            <div class="step">
+                <strong>Test 3: Test Phone Number Format</strong>
+                <input type="text" id="phoneInput" placeholder="Enter phone number" style="padding: 8px; margin: 5px;">
+                <button onclick="testPhoneFormat()">Test Format</button>
+                <div id="phoneResult"></div>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3>📋 Debug Checklist</h3>
+            <div class="checklist">
+                <ul>
+                    <li>✅ Environment variables are set correctly</li>
+                    <li>✅ Database tables exist (user_profiles, markets, etc.)</li>
+                    <li>✅ RLS policies are configured properly</li>
+                    <li>✅ Phone number format is valid</li>
+                    <li>✅ Email format is valid</li>
+                    <li>✅ Password meets requirements (6+ characters)</li>
+                    <li>✅ Supabase project is active</li>
+                    <li>✅ Auth settings allow user registration</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="error-section">
+            <h3>🚨 If Still Getting 400 Error</h3>
+            <div class="step">
+                <strong>1. Check Supabase Logs:</strong>
+                <div class="code-block">
+                    Go to Supabase Dashboard → Logs → Auth<br>
+                    Look for error messages during registration
+                </div>
+            </div>
+            
+            <div class="step">
+                <strong>2. Check Database Logs:</strong>
+                <div class="code-block">
+                    Go to Supabase Dashboard → Logs → Database<br>
+                    Look for SQL errors or constraint violations
+                </div>
+            </div>
+            
+            <div class="step">
+                <strong>3. Test with Simple Data:</strong>
+                <div class="code-block">
+                    Try registering with minimal data:<br>
+                    - Email: test@test.com<br>
+                    - Password: 123456<br>
+                    - Name: Test<br>
+                    - Phone: +998901234567
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function testSupabaseConnection() {
+            const result = document.getElementById('connectionResult');
+            result.innerHTML = '<div class="info">Testing Supabase connection... Check browser console for results.</div>';
+            
+            // This would need to be implemented with actual Supabase client
+            console.log('Testing Supabase connection...');
+            console.log('NEXT_PUBLIC_SUPABASE_URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
+            console.log('NEXT_PUBLIC_SUPABASE_ANON_KEY:', process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ? 'Set' : 'Not set');
+        }
+        
+        function checkDatabaseTables() {
+            const result = document.getElementById('tablesResult');
+            result.innerHTML = '<div class="info">Checking database tables... Run this SQL in Supabase SQL Editor:</div><div class="code-block">SELECT table_name FROM information_schema.tables WHERE table_schema = \'public\';</div>';
+        }
+        
+        function testPhoneFormat() {
+            const phone = document.getElementById('phoneInput').value;
+            const result = document.getElementById('phoneResult');
+            
+            if (!phone) {
+                result.innerHTML = '<div class="error">Please enter a phone number</div>';
+                return;
+            }
+            
+            // Test phone number format
+            const cleaned = phone.replace(/[^\d+]/g, '');
+            let formatted = phone;
+            
+            if (cleaned.startsWith('+998')) {
+                formatted = cleaned;
+            } else if (cleaned.startsWith('998')) {
+                formatted = '+' + cleaned;
+            } else if (cleaned.startsWith('9') && cleaned.length === 9) {
+                formatted = '+998' + cleaned;
+            }
+            
+            const isValid = /^\+998[0-9]{9}$/.test(formatted);
+            
+            result.innerHTML = `
+                <div class="${isValid ? 'success' : 'error'}">
+                    <strong>Original:</strong> ${phone}<br>
+                    <strong>Formatted:</strong> ${formatted}<br>
+                    <strong>Valid:</strong> ${isValid ? 'Yes' : 'No'}
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
+
+
